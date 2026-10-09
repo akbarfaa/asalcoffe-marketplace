@@ -1,0 +1,132 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --font-display: "Archivo Black", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-espresso: var(--espresso);
+  --color-roast: var(--roast);
+  --color-taupe: var(--taupe);
+  --color-paper: var(--paper);
+}
+
+:root {
+  --radius: 4px;
+  --espresso: oklch(0.22 0.025 50);
+  --roast: oklch(0.38 0.06 50);
+  --taupe: oklch(0.72 0.04 70);
+  --paper: oklch(0.995 0.008 90);
+  --background: oklch(0.94 0.03 80);
+  --foreground: var(--espresso);
+  --card: var(--paper);
+  --card-foreground: var(--espresso);
+  --popover: var(--paper);
+  --popover-foreground: var(--espresso);
+  --primary: oklch(0.62 0.18 33);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(0.79 0.15 125);
+  --secondary-foreground: var(--espresso);
+  --muted: oklch(0.9 0.03 80);
+  --muted-foreground: oklch(0.42 0.04 55);
+  --accent: oklch(0.79 0.15 125);
+  --accent-foreground: var(--espresso);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: var(--paper);
+  --border: var(--espresso);
+  --input: var(--espresso);
+  --ring: var(--espresso);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility brut {
+  border: 3px solid var(--espresso);
+  box-shadow: 5px 5px 0 0 var(--espresso);
+}
+@utility brut-sm {
+  border: 2px solid var(--espresso);
+  box-shadow: 3px 3px 0 0 var(--espresso);
+}
+@utility brut-btn {
+  border: 2px solid var(--espresso);
+  box-shadow: 4px 4px 0 0 var(--espresso);
+  font-weight: 700;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--espresso);
+  }
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--espresso);
+  }
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+@utility field {
+  border: 2px solid var(--espresso);
+  background: var(--paper);
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  &:focus {
+    outline: 3px solid var(--secondary);
+    outline-offset: 1px;
+  }
+}
+@utility rise {
+  animation: rise 0.45s ease-out both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -36,9 +36,15 @@ function Register() {
     setF({ ...f, [k]: e.target.value });
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (f.password.length < 6) return toast.error("Password minimal 6 karakter.");
+    if (f.password.length < 6) {
+      toast.error("Password minimal 6 karakter.");
+      return;
+    }
     const err = register(f);
-    if (err) return toast.error(err);
+    if (err) {
+      toast.error(err);
+      return;
+    }
     toast.success("Akun dibuat");
     nav({ to: f.role === "seller" ? "/seller" : "/marketplace" });
   };

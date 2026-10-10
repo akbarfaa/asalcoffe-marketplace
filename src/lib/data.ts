@@ -197,14 +197,15 @@ const notes = [
 const imgFor = (f: string, i: number) => (f === "Green Bean" ? (i % 2 ? green : drying) : roasted);
 
 export const SEED_PRODUCTS: Product[] = Array.from({ length: 20 }, (_, i) => {
-  const o = ORIGINS[i % ORIGINS.length];
-  const s = SELLERS[i % 3];
+  const o = ORIGINS[i % ORIGINS.length]!;
+  const s = SELLERS[i % 3]!;
   const species = o.id === "lampung" ? "Robusta" : i === 13 ? "Liberica" : "Arabica";
-  const fmt = formats[i % 4];
+  const fmt = formats[i % 4]!;
   const base =
     (species === "Robusta" ? 75000 : 120000) + (i % 5) * 9000 + (fmt !== "Green Bean" ? 40000 : 0);
   const tiered = i % 3 !== 2;
-  const proc = processes[i % 4];
+  const proc = processes[i % 4]!;
+  const roast = fmt === "Green Bean" ? undefined : ["Light", "Medium", "Medium-Dark"][i % 3];
   return {
     id: `p${i + 1}`,
     name: `${o.name} ${species} ${proc}${i >= 8 ? " Lot " + (i + 1) : ""}`,
@@ -217,13 +218,13 @@ export const SEED_PRODUCTS: Product[] = Array.from({ length: 20 }, (_, i) => {
     originName: o.name,
     province: o.province,
     species,
-    variety: o.varieties[i % o.varieties.length],
+    variety: o.varieties[i % o.varieties.length] ?? "Typica",
     processingMethod: proc,
     beanFormat: fmt,
-    roastLevel: fmt === "Green Bean" ? undefined : ["Light", "Medium", "Medium-Dark"][i % 3],
-    flavorNotes: notes[i % notes.length],
-    body: ["Light", "Medium", "Full"][i % 3],
-    acidity: ["Low", "Medium", "Bright"][(i + 1) % 3],
+    ...(roast ? { roastLevel: roast } : {}),
+    flavorNotes: notes[i % notes.length]!,
+    body: ["Light", "Medium", "Full"][i % 3]!,
+    acidity: ["Low", "Medium", "Bright"][(i + 1) % 3]!,
     stockKg: 40 + ((i * 37) % 460),
     minimumOrderKg: fmt === "Green Bean" && i % 2 ? 5 : 1,
     pricePerKg: base,
@@ -235,7 +236,7 @@ export const SEED_PRODUCTS: Product[] = Array.from({ length: 20 }, (_, i) => {
           { minKg: 100, pricePerKg: Math.round(base * 0.77) },
         ]
       : [{ minKg: 1, pricePerKg: base }],
-    harvestSeason: ["May–Aug 2026", "Apr–Jul 2026", "Jun–Sep 2026"][i % 3],
+    harvestSeason: ["May–Aug 2026", "Apr–Jul 2026", "Jun–Sep 2026"][i % 3]!,
     sampleAvailable: i % 2 === 0,
     createdAt: new Date(2026, 6, 1 + i).toISOString(),
     status: "active",
@@ -293,7 +294,7 @@ export type Order = {
 };
 
 const mk = (id: string, pid: number, qty: number, status: OrderStatus): Order => {
-  const p = SEED_PRODUCTS[pid];
+  const p = SEED_PRODUCTS[pid]!;
   const u = unitPrice(p, qty);
   const hist: OrderStatus[] =
     status === "Pending"

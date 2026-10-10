@@ -186,8 +186,10 @@ function ProductForm({ initial, onClose }: { initial: Product | null; onClose: (
       setF({ ...f, [k]: e.target.type === "number" ? +e.target.value : e.target.value });
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (f.pricePerKg <= 0 || f.stockKg < 0 || f.minimumOrderKg < 1)
-      return toast.error("Harga, stok, dan minimum order harus valid.");
+    if (f.pricePerKg <= 0 || f.stockKg < 0 || f.minimumOrderKg < 1) {
+      toast.error("Harga, stok, dan minimum order harus valid.");
+      return;
+    }
     const o = ORIGINS.find((x) => x.id === f.originId)!;
     const b = f.pricePerKg;
     const p: Product = {

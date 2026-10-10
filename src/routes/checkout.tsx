@@ -50,9 +50,15 @@ function Checkout() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!/^\S+@\S+\.\S+$/.test(f.email)) return toast.error("Email tidak valid.");
+    if (!/^\S+@\S+\.\S+$/.test(f.email)) {
+      toast.error("Email tidak valid.");
+      return;
+    }
     const r = checkout(f, shipping);
-    if (!r.ok) return toast.error(r.error);
+    if (!r.ok) {
+      toast.error(r.error);
+      return;
+    }
     toast.success("Pesanan demo dibuat!");
     nav({ to: "/orders/$id", params: { id: r.id } });
   };

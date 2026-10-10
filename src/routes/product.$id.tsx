@@ -52,7 +52,10 @@ function Detail() {
       return;
     }
     const err = addToCart(p.id, qty);
-    if (err) return toast.error(err);
+    if (err) {
+      toast.error(err);
+      return;
+    }
     toast.success(`${qty} kg ditambahkan ke keranjang`);
     if (go) nav({ to: "/cart" });
   };

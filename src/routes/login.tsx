@@ -22,7 +22,10 @@ function Login() {
   const [pw, setPw] = useState("");
   const go = (e: string, p: string) => {
     const err = login(e, p);
-    if (err) return toast.error(err);
+    if (err) {
+      toast.error(err);
+      return;
+    }
     toast.success("Berhasil masuk");
     nav({ to: e.startsWith("seller") ? "/seller" : "/marketplace" });
   };

@@ -119,7 +119,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     checkout: (address, shipping) => {
       if (!user) return { ok: false, error: "Silakan login." };
       if (!cart.length) return { ok: false, error: "Keranjang kosong." };
-      const items = [];
+      const items: Order["items"] = [];
       for (const c of cart) {
         const p = products.find((x) => x.id === c.productId);
         if (!p) return { ok: false, error: "Produk tidak ditemukan." };

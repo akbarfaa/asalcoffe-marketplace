@@ -5,10 +5,15 @@ import { ORIGINS } from "@/lib/data";
 import { useStore } from "@/lib/store";
 import { ProductCard } from "@/components/Shell";
 
+type MarketplaceSearch = {
+  origin?: string;
+};
+
 export const Route = createFileRoute("/marketplace")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    origin: typeof s.origin === "string" ? s.origin : undefined,
-  }),
+  validateSearch: (s: Record<string, unknown>): MarketplaceSearch => {
+    const origin = typeof s["origin"] === "string" ? s["origin"] : undefined;
+    return origin ? { origin } : {};
+  },
   head: () => ({
     meta: [
       { title: "Marketplace — ASAL COFFEE" },

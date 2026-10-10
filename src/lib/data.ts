@@ -1,4 +1,4 @@
-import hero from "@/assets/hero.jpg";
+import hero from "@/assets/gambar-kopi.svg";
 import roasted from "@/assets/roasted.jpg";
 import green from "@/assets/green.jpg";
 import drying from "@/assets/drying.jpg";
